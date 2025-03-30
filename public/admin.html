@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+</head>
+<body>
+    <script>
+        // Authentication check
+        if(!localStorage.getItem('adminAuth')) {
+            window.location.href = 'admin-login.html';
+        }
+    </script>
+
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <div class="nav-item active" onclick="showSection('dashboard')">Dashboard</div>
+        <div class="nav-item" onclick="showSection('users')">User Management</div>
+        <div class="nav-item" onclick="showSection('portfolio')">Portfolio Management</div>
+        <div class="nav-item" onclick="showSection('testimonials')">Testimonials</div>
+        <div class="nav-item" onclick="showSection('blog')">Blog Management</div>
+        <div class="nav-item" onclick="logout()">Logout</div>
+    </div>
+
+    <div class="main-content">
+        <div id="dashboard" class="section active">
+            <h2>Dashboard</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Users</h3>
+                    <p>Total Users: <span id="userCount">5</span></p>
+                </div>
+                <div class="card">
+                    <h3>Portfolio Items</h3>
+                    <p>Total Items: <span id="portfolioCount">12</span></p>
+                </div>
+                <div class="card">
+                    <h3>Testimonials</h3>
+                    <p>Total Reviews: <span id="testimonialCount">8</span></p>
+                </div>
+                <div class="card">
+                    <h3>Blog Posts</h3>
+                    <p>Total Posts: <span id="blogCount">15</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="users" class="section">
+            <h2>User Management</h2>
+            <div class="card">
+                <h3>Add New User</h3>
+                <input type="text" placeholder="Username">
+                <input type="email" placeholder="Email">
+                <select>
+                    <option>Administrator</option>
+                    <option>Editor</option>
+                    <option>Content Manager</option>
+                </select>
+                <button>Add User</button>
+            </div>
+            <div class="card">
+                <h3>User List</h3>
+                <!-- User list would go here -->
+            </div>
+        </div>
+
+        <div id="portfolio" class="section">
+            <h2>Portfolio Management</h2>
+            <div class="card">
+                <h3>Upload Media</h3>
+                <input type="file" multiple>
+                <button>Upload</button>
+            </div>
+            <div class="media-grid">
+                <!-- Portfolio items would go here -->
+            </div>
+        </div>
+
+        <div id="testimonials" class="section">
+            <h2>Testimonials Management</h2>
+            <div class="card">
+                <h3>Add Testimonial</h3>
+                <input type="text" placeholder="Client Name">
+                <input type="text" placeholder="Client Location">
+                <textarea placeholder="Testimonial Text"></textarea>
+                <button>Add Testimonial</button>
+            </div>
+        </div>
+
+        <div id="blog" class="section">
+            <h2>Blog Management</h2>
+            <div class="card">
+                <h3>New Blog Post</h3>
+                <input type="text" placeholder="Post Title">
+                <textarea placeholder="Post Content"></textarea>
+                <input type="text" placeholder="Tags (comma-separated)">
+                <button>Publish Post</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            // Update nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function logout() {
+            localStorage.removeItem('adminAuth');
+            window.location.href = 'admin-login.html';
+        }
+    </script>
+</body>
+</html>
