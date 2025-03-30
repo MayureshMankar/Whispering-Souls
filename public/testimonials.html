@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonials - Whispering Souls</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        :root {
+            --primary-color: #FAF9F6; /* Soft Ivory */
+            --secondary-color: #8D3B3B; /* Deep Burgundy */
+            --accent-color: #D4A373; /* Golden Amber */
+            --text-dark: #2E2E2E; /* Charcoal */
+            --text-light: #FAF9F6; /* Ivory */
+            --neutral-dark: #1C1F33; /* Deep Navy */
+            --neutral-mid: #757575; /* Slate Gray */
+            --bg-gradient: linear-gradient(45deg, #FAF9F6 0%, #F7E7CE 100%);
+            --overlay-gradient: linear-gradient(45deg, rgba(238, 199, 194, 0.1) 0%, rgba(247, 231, 206, 0.05) 100%);
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 0;
+            background: var(--primary-color);
+            color: var(--text-dark);
+        }
+
+        .page-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Testimonials Section */
+        .testimonials-contact {
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-contact h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--secondary-color);
+            font-size: 2rem;
+            font-family: var(--font-heading);
+            position: relative;
+            z-index: 2;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .testimonials-contact h3::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-color);
+            transition: width 0.5s ease;
+            z-index: -1;
+        }
+
+        .testimonials-contact h3:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        .testimonials-contact h3:hover::before {
+            width: 100px;
+        }
+
+        /* Testimonial Cards */
+        .testimonial-card {
+            background: var(--primary-color);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 100px;
+            height: 100px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            opacity: 0.1;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial-card:hover::before {
+            transform: scale(1.5);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            color: var(--neutral-mid);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .client-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .client-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+        }
+
+        .client-info span {
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Star Ratings */
+        .star-rating {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+
+        /* Testimonial Carousel */
+        .testimonial-carousel .slick-slide {
+            padding: 0 15px;
+        }
+
+        .testimonial-carousel .slick-prev,
+        .testimonial-carousel .slick-next {
+            background: var(--accent-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            z-index: 1;
+        }
+
+        .testimonial-carousel .slick-prev:hover,
+        .testimonial-carousel .slick-next:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Testimonial Form */
+        .testimonial-form {
+            background: var(--primary-color);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-form h4 {
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            font-family: var(--font-heading);
+        }
+
+        .testimonial-form input,
+        .testimonial-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: var(--primary-color);
+            color: var(--text-dark);
+        }
+
+        .testimonial-form button {
+            background: var(--accent-color);
+            color: var(--text-light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .testimonial-form button:hover {
+            background: var(--secondary-color);
+        }
+
+       
+    </style>
+</head>
+<body>
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Whispering Souls</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="testimonials.html">Testimonials</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="page-container">
+        <div class="testimonials-contact">
+            <h3><i class="fas fa-comments"></i> What Our Clients Say</h3>
+
+            <!-- Testimonial Carousel -->
+            <div class="testimonial-carousel">
+                <div class="testimonial-card">
+                    <div class="star-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"The team responded to my inquiry within hours and provided exceptional guidance throughout the process."</p>
+                    <div class="client-info">
+                        <img src="assets/media/img7.jpg" alt="Client" class="client-photo">
+                        <span>- Priya Sharma, Delhi</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="star-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"The team responded to my inquiry within hours and provided exceptional guidance throughout the process."</p>
+                    <div class="client-info">
+                        <img src="assets/media/img7.jpg" alt="Client" class="client-photo">
+                        <span>- Priya Sharma, Delhi</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="star-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Our wedding photos are breathtaking. Thank you, Whispering Souls!"</p>
+                    <div class="client-info">
+                        <img src="assets/media/img5.jpg" alt="Client" class="client-photo">
+                        <span>- Ravi Kumar, Chennai</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial Form -->
+            <div class="testimonial-form">
+                <h4>Share Your Experience</h4>
+                <form action="#" method="POST">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="testimonial" placeholder="Your Testimonial" rows="5" required></textarea>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <!-- About Us Section -->
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Whispering Souls is a wedding photography and cinematography studio dedicated to capturing your special moments with elegance and artistry.</p>
+            </div>
+
+            <!-- Quick Links Section -->
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Us Section -->
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>123 Wedding Lane, Mumbai, India</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>contact@whisperingsouls.com</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+91 98765 43210</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Follow Us Section -->
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright -->
+        <p class="copyright">© 2025 Whispering Souls. All rights reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.testimonial-carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                adaptiveHeight: true,
+                autoplay: true,
+                autoplaySpeed: 3000,
+            });
+        });
+    </script>
+</body>
+</html>
